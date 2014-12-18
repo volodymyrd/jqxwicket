@@ -32,18 +32,17 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.ajax.IJQueryAjaxAware;
 import com.gmail.volodymyrdotsenko.jqxwicket.core.ajax.JQueryAjaxBehavior;
 import com.gmail.volodymyrdotsenko.jqxwicket.core.utils.RequestCycleUtils;
 
-
 /**
  * Provides a jQuery tabs behavior.<br/>
  * Note, this class has almost the same code as AccordionBehavior
- *
+ * 
  * @author Sebastien Briquet - sebfz1
  * @since 1.2.1
  */
-public abstract class TabsBehavior extends JQueryUIBehavior implements IJQueryAjaxAware, ITabsListener
-{
+public abstract class TabsBehavior extends JQueryUIBehavior implements
+		IJQueryAjaxAware, ITabsListener {
 	private static final long serialVersionUID = 1L;
-	private static final String METHOD = "tabs";
+	private static final String METHOD = "jqxTabs";
 
 	private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
@@ -51,48 +50,47 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements IJQueryAj
 
 	/**
 	 * Constructor
-	 *
-	 * @param selector the html selector (ie: "#myId")
+	 * 
+	 * @param selector
+	 *            the html selector (ie: "#myId")
 	 */
-	public TabsBehavior(String selector)
-	{
+	public TabsBehavior(String selector) {
 		super(selector, METHOD);
 	}
 
 	/**
 	 * Constructor
-	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param options the {@link Options}
+	 * 
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param options
+	 *            the {@link Options}
 	 */
-	public TabsBehavior(String selector, Options options)
-	{
+	public TabsBehavior(String selector, Options options) {
 		super(selector, METHOD, options);
 	}
-
 
 	// Properties //
 	/**
 	 * Gets the reference {@link List} of {@link ITab}<tt>s</tt>.<br/>
-	 * Usually the model object of the component on which this {@link TabsBehavior} is bound to.
-	 *
+	 * Usually the model object of the component on which this
+	 * {@link TabsBehavior} is bound to.
+	 * 
 	 * @return a non-null {@link List}
 	 */
 	protected abstract List<ITab> getTabs();
 
 	/**
-	 * Gets a read-only {@link ITab} {@link List} having its visible flag set to true.
-	 *
+	 * Gets a read-only {@link ITab} {@link List} having its visible flag set to
+	 * true.
+	 * 
 	 * @return a {@link List} of {@link ITab}<tt>s</tt>
 	 */
-	protected List<ITab> getVisibleTabs()
-	{
+	protected List<ITab> getVisibleTabs() {
 		List<ITab> list = new ArrayList<ITab>();
 
-		for (ITab tab : this.getTabs())
-		{
-			if (tab.isVisible())
-			{
+		for (ITab tab : this.getTabs()) {
+			if (tab.isVisible()) {
 				list.add(tab);
 			}
 		}
@@ -100,147 +98,140 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements IJQueryAj
 		return Collections.unmodifiableList(list);
 	}
 
-
 	// Methods //
 	@Override
-	public void bind(Component component)
-	{
+	public void bind(Component component) {
 		super.bind(component);
 
-		if (this.isCreateEventEnabled())
-		{
-			component.add(this.createEventBehavior = this.newActivateEventBehavior());
+		if (this.isCreateEventEnabled()) {
+			component.add(this.createEventBehavior = this
+					.newActivateEventBehavior());
 		}
 
-		if (this.isActivateEventEnabled())
-		{
-			component.add(this.activateEventBehavior = this.newActivateEventBehavior());
+		if (this.isActivateEventEnabled()) {
+			component.add(this.activateEventBehavior = this
+					.newActivateEventBehavior());
 		}
 
-		if (this.isActivatingEventEnabled())
-		{
-			component.add(this.activatingEventBehavior = this.newActivatingEventBehavior());
+		if (this.isActivatingEventEnabled()) {
+			component.add(this.activatingEventBehavior = this
+					.newActivatingEventBehavior());
 		}
 	}
 
 	/**
 	 * Activates the selected tab, identified by the index
-	 *
-	 * @param target the {@link AjaxRequestTarget}
-	 * @param index the tab's index
+	 * 
+	 * @param target
+	 *            the {@link AjaxRequestTarget}
+	 * @param index
+	 *            the tab's index
 	 */
-	public void activate(int index, AjaxRequestTarget target)
-	{
-		target.appendJavaScript(this.$("'option'", "'active'", index));
+	public void activate(int index, AjaxRequestTarget target) {
+		target.appendJavaScript(this.$("'option'", "'selectedItem'", index));
 	}
-
 
 	// Events //
 	@Override
-	public void onConfigure(Component component)
-	{
+	public void onConfigure(Component component) {
 		super.onConfigure(component);
 
-		if (this.createEventBehavior != null)
-		{
-			this.setOption("create", this.createEventBehavior.getCallbackFunction());
+		if (this.createEventBehavior != null) {
+			this.setOption("created",
+					this.createEventBehavior.getCallbackFunction());
 		}
 
-		if (this.activateEventBehavior != null)
-		{
-			this.setOption("activate", this.activateEventBehavior.getCallbackFunction());
+		if (this.activateEventBehavior != null) {
+			//this.setOption("selectedItem",
+				//this.activateEventBehavior.getCallbackFunction());
+			//on("#tabs1", "selected", "function(){console.log('selected');}");
 		}
 
-		if (this.activatingEventBehavior != null)
-		{
-			this.setOption("beforeActivate", this.activatingEventBehavior.getCallbackFunction());
+		if (this.activatingEventBehavior != null) {
+			this.setOption("beforeActivate",
+					this.activatingEventBehavior.getCallbackFunction());
 		}
 	}
 
 	@Override
-	public void onAjax(AjaxRequestTarget target, JQueryEvent event)
-	{
-		if (event instanceof ActivateEvent)
-		{
+	public void onAjax(AjaxRequestTarget target, JQueryEvent event) {
+		if (event instanceof ActivateEvent) {
 			int index = ((ActivateEvent) event).getIndex();
 			final List<ITab> tabs = this.getVisibleTabs();
 
-			if (-1 < index && index < tabs.size()) /* index could be unknown depending on options and user action */
+			if (-1 < index && index < tabs.size()) /*
+													 * index could be unknown
+													 * depending on options and
+													 * user action
+													 */
 			{
 				ITab tab = tabs.get(index);
 
-				if (tab instanceof AjaxTab)
-				{
-					((AjaxTab)tab).load(target);
+				if (tab instanceof AjaxTab) {
+					((AjaxTab) tab).load(target);
 				}
 
-				if (event instanceof ActivatingEvent)
-				{
+				if (event instanceof ActivatingEvent) {
 					this.onActivating(target, index, tab);
-				}
-				else
-				{
+				} else {
 					this.onActivate(target, index, tab);
 				}
 			}
 		}
 	}
 
-
 	// Factories //
 	/**
-	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'activate' javascript callback
-	 *
+	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'activate'
+	 * javascript callback
+	 * 
 	 * @return the {@link JQueryAjaxBehavior}
 	 */
-	protected JQueryAjaxBehavior newActivateEventBehavior()
-	{
+	protected JQueryAjaxBehavior newActivateEventBehavior() {
 		return new JQueryAjaxBehavior(this) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CallbackParameter[] getCallbackParameters()
-			{
+			protected CallbackParameter[] getCallbackParameters() {
 				return new CallbackParameter[] {
 						CallbackParameter.context("event"),
 						CallbackParameter.context("ui"),
-						CallbackParameter.resolved("index", "jQuery(event.target).tabs('option', 'active')")
-				};
+						CallbackParameter
+								.resolved("index",
+										"jQuery(event.target).jqxTabs('option', 'selectedItem')") };
 			}
 
 			@Override
-			protected JQueryEvent newEvent()
-			{
+			protected JQueryEvent newEvent() {
 				return new ActivateEvent();
 			}
 		};
 	}
 
 	/**
-	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'beforeActivate' javascript callback
-	 *
+	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'beforeActivate'
+	 * javascript callback
+	 * 
 	 * @return the {@link JQueryAjaxBehavior}
 	 */
-	protected JQueryAjaxBehavior newActivatingEventBehavior()
-	{
+	protected JQueryAjaxBehavior newActivatingEventBehavior() {
 		return new JQueryAjaxBehavior(this) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected CallbackParameter[] getCallbackParameters()
-			{
+			protected CallbackParameter[] getCallbackParameters() {
 				return new CallbackParameter[] {
 						CallbackParameter.context("event"),
 						CallbackParameter.context("ui"),
-						CallbackParameter.resolved("index", "jQuery(event.target).tabs('option', 'active')"),
-				};
+						CallbackParameter
+								.resolved("index",
+										"jQuery(event.target).jqxTabs('option', 'selectedItem')"), };
 			}
 
 			@Override
-			protected JQueryEvent newEvent()
-			{
+			protected JQueryEvent newEvent() {
 				return new ActivatingEvent();
 			}
 		};
@@ -249,37 +240,36 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements IJQueryAj
 	// Event objects //
 
 	/**
-	 * Provides an event object that will be broadcasted by the {@link JQueryAjaxBehavior} 'activate' callback
+	 * Provides an event object that will be broadcasted by the
+	 * {@link JQueryAjaxBehavior} 'activate' callback
 	 */
-	protected static class ActivateEvent extends JQueryEvent
-	{
+	protected static class ActivateEvent extends JQueryEvent {
 		private final int index;
 
 		/**
 		 * Constructor
 		 */
-		public ActivateEvent()
-		{
+		public ActivateEvent() {
 			super();
 
-			this.index = RequestCycleUtils.getQueryParameterValue("index").toInt(-1);
+			this.index = RequestCycleUtils.getQueryParameterValue("index")
+					.toInt(-1);
 		}
 
 		/**
 		 * Gets the tab's index
-		 *
+		 * 
 		 * @return the index
 		 */
-		public int getIndex()
-		{
+		public int getIndex() {
 			return this.index;
 		}
 	}
 
 	/**
-	 * Provides an event object that will be broadcasted by the {@link JQueryAjaxBehavior} 'beforeActivate' callback
+	 * Provides an event object that will be broadcasted by the
+	 * {@link JQueryAjaxBehavior} 'beforeActivate' callback
 	 */
-	protected static class ActivatingEvent extends ActivateEvent
-	{
+	protected static class ActivatingEvent extends ActivateEvent {
 	}
 }

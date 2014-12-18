@@ -1,14 +1,12 @@
-package com.gmail.volodymyrdotsenko.jqxwicket.widgetspages;
+package com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.tabs;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.TemplatePage;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.JQueryUIBehavior;
 
-public class TabsPage extends TemplatePage
-{
+public class DefaultTabsPage extends TemplatePage {
 	private static final long serialVersionUID = 1L;
 
-	public TabsPage()
-	{
+	public DefaultTabsPage() {
 		this.add(new JQueryUIBehavior("#tabs", "jqxTabs"));
 	}
 }

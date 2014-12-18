@@ -101,7 +101,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener
 	 */
 	public TabbedPanel setActiveTab(int index)
 	{
-		this.options.set("active", index);
+		this.options.set("selectedItem ", index);
 
 		return this;
 	}
@@ -121,7 +121,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener
 	@Override
 	public boolean isCreateEventEnabled()
 	{
-		return true;
+		return false;
 	}
 
 	@Override
