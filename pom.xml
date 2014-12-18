@@ -25,12 +25,12 @@
 		</developer>
 	</developers>
 
-	<scm>
+<!--	<scm>
 		<url>git@github.com:volodymyrd/jqxwicket.git</url>
 		<connection>scm:git:git@github.com:volodymyrd/jqxwicket.git</connection>
 		<developerConnection>scm:git:git@github.com:volodymyrd/jqxwicket.git</developerConnection>
 	</scm>
-
+-->
 	<properties>
 		<wicket.version>6.18.0</wicket.version>
 		<junit.version>4.11</junit.version>
