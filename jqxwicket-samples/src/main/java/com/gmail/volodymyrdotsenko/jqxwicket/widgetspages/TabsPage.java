@@ -1,8 +1,7 @@
 package com.gmail.volodymyrdotsenko.jqxwicket.widgetspages;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.TemplatePage;
-
-//import com.googlecode.wicket.jquery.ui.JQueryUIBehavior;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgets.JQueryUIBehavior;
 
 public class TabsPage extends TemplatePage
 {
@@ -10,6 +9,6 @@ public class TabsPage extends TemplatePage
 
 	public TabsPage()
 	{
-		//this.add(new JQueryUIBehavior("#tabs", "tabs"));
+		this.add(new JQueryUIBehavior("#tabs", "jqxTabs"));
 	}
 }

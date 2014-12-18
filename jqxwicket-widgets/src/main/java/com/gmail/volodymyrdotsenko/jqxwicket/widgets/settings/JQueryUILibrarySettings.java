@@ -18,7 +18,7 @@ package com.gmail.volodymyrdotsenko.jqxwicket.widgets.settings;
 
 import org.apache.wicket.request.resource.ResourceReference;
 
-import com.gmail.volodymyrdotsenko.jqxwicket.widgets.resource.JQueryUIResourceReference;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgets.resource.JQXResourceReference;
 
 /**
  * Provides library settings for jQuery UI resource references<br/>
@@ -47,7 +47,7 @@ public class JQueryUILibrarySettings
 {
 	private static JQueryUILibrarySettings instance = null;
 
-	private ResourceReference javascriptReference = JQueryUIResourceReference.get();
+	private ResourceReference javascriptReference = JQXResourceReference.get();
 	private ResourceReference stylesheetReference = null;
 
 	/**

@@ -21,21 +21,21 @@ import org.apache.wicket.resource.JQueryPluginResourceReference;
 /**
  * Provides the resource reference for the jQuery UI javascript library.
  *
- * @author Sebastien Briquet - sebfz1
+ *  @author Volodymyr Dotsenko
  *
  */
-public class JQueryUIResourceReference extends JQueryPluginResourceReference
+public class JQXResourceReference extends JQueryPluginResourceReference
 {
 	private static final long serialVersionUID = 1L;
 
-	private static final JQueryUIResourceReference INSTANCE = new JQueryUIResourceReference();
+	private static final JQXResourceReference INSTANCE = new JQXResourceReference();
 
 	/**
 	 * Gets the instance of the resource reference
 	 *
 	 * @return the single instance of the resource reference
 	 */
-	public static JQueryUIResourceReference get()
+	public static JQXResourceReference get()
 	{
 		return INSTANCE;
 	}
@@ -43,8 +43,8 @@ public class JQueryUIResourceReference extends JQueryPluginResourceReference
 	/**
 	 * Private constructor
 	 */
-	private JQueryUIResourceReference()
+	private JQXResourceReference()
 	{
-		super(JQueryUIResourceReference.class, "jqx-all.js"); // v1.11.1
+		super(JQXResourceReference.class, "jqx-all.js"); // v1.11.1
 	}
 }
