@@ -17,7 +17,9 @@
 package com.gmail.volodymyrdotsenko.jqxwicket.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.wicket.Component;
@@ -31,8 +33,7 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
  * @author Sebastien Briquet - sebfz1
  * @since 1.0
  */
-public class JQueryBehavior extends JQueryAbstractBehavior
-{
+public class JQueryBehavior extends JQueryAbstractBehavior {
 	private static final long serialVersionUID = 1L;
 	private static final String NULL_OPTIONS = "Options have not been defined (null has been supplied to the constructor)";
 
@@ -40,38 +41,41 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	protected final String method;
 	protected final Options options;
 
-	private List<String> events = null;
+	private Map<String, String> events = null;
 
 	/**
 	 * Constructor
 	 *
-	 * @param selector the html selector (ie: "#myId")
+	 * @param selector
+	 *            the html selector (ie: "#myId")
 	 */
-	public JQueryBehavior(String selector)
-	{
+	public JQueryBehavior(String selector) {
 		this(selector, "");
 	}
 
 	/**
 	 * Constructor
 	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param method the jquery method
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param method
+	 *            the jquery method
 	 */
-	public JQueryBehavior(String selector, String method)
-	{
+	public JQueryBehavior(String selector, String method) {
 		this(selector, method, new Options());
 	}
 
 	/**
 	 * Constructor
 	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param method the jquery method
-	 * @param options the {@link Options}
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param method
+	 *            the jquery method
+	 * @param options
+	 *            the {@link Options}
 	 */
-	public JQueryBehavior(String selector, String method, Options options)
-	{
+	public JQueryBehavior(String selector, String method, Options options) {
 		super(method);
 
 		this.method = method;
@@ -81,23 +85,21 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 
 	// Methods //
 	@Override
-	public void renderHead(Component component, IHeaderResponse response)
-	{
+	public void renderHead(Component component, IHeaderResponse response) {
 		super.renderHead(component, response);
 
 		// renders javascript events
-		if (this.events != null)
-		{
+		if (this.events != null) {
 			StringBuilder statements = new StringBuilder("jQuery(function() { ");
 
-			for (String event : this.events)
-			{
-				statements.append(event);
+			for (Map.Entry<String, String> event : this.events.entrySet()) {
+				statements.append(event.getValue());
 			}
 
 			statements.append(" });");
 
-			response.render(JavaScriptHeaderItem.forScript(statements, this.getToken() + "-events"));
+			response.render(JavaScriptHeaderItem.forScript(statements,
+					this.getToken() + "-events"));
 		}
 	}
 
@@ -107,18 +109,17 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	 *
 	 * @return the selector
 	 */
-	public String getSelector()
-	{
+	public String getSelector() {
 		return this.selector;
 	}
 
 	/**
 	 * Sets the selector
 	 *
-	 * @param selector the html selector (ie: "#myId")
+	 * @param selector
+	 *            the html selector (ie: "#myId")
 	 */
-	protected void setSelector(String selector)
-	{
+	protected void setSelector(String selector) {
 		this.selector = selector;
 	}
 
@@ -127,21 +128,19 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	 *
 	 * @return the method
 	 */
-	public String getMethod()
-	{
+	public String getMethod() {
 		return this.method;
 	}
 
 	/**
 	 * Gets a behavior option, referenced by its key
 	 *
-	 * @param key the option key
+	 * @param key
+	 *            the option key
 	 * @return null if the key does not exists
 	 */
-	public <T extends Object> T getOption(String key)
-	{
-		if (this.options == null)
-		{
+	public <T extends Object> T getOption(String key) {
+		if (this.options == null) {
 			throw new WicketRuntimeException(NULL_OPTIONS);
 		}
 
@@ -151,14 +150,14 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	/**
 	 * Sets a behavior option.
 	 *
-	 * @param key the option key
-	 * @param value the option value
+	 * @param key
+	 *            the option key
+	 * @param value
+	 *            the option value
 	 * @return the {@link JQueryBehavior} (this)
 	 */
-	public JQueryBehavior setOption(String key, Object value)
-	{
-		if (this.options == null)
-		{
+	public JQueryBehavior setOption(String key, Object value) {
+		if (this.options == null) {
 			throw new WicketRuntimeException(NULL_OPTIONS);
 		}
 
@@ -170,14 +169,14 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	/**
 	 * Sets a behavior option, with multiple values.
 	 *
-	 * @param key the option key
-	 * @param values the option values
+	 * @param key
+	 *            the option key
+	 * @param values
+	 *            the option values
 	 * @return the {@link JQueryBehavior} (this)
 	 */
-	public JQueryBehavior setOption(String key, Object... values)
-	{
-		if (this.options == null)
-		{
+	public JQueryBehavior setOption(String key, Object... values) {
+		if (this.options == null) {
 			throw new WicketRuntimeException(NULL_OPTIONS);
 		}
 
@@ -189,14 +188,14 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	/**
 	 * Sets a behavior option, with multiple values.
 	 *
-	 * @param key the option key
-	 * @param values the option values
+	 * @param key
+	 *            the option key
+	 * @param values
+	 *            the option values
 	 * @return the {@link JQueryBehavior} (this)
 	 */
-	public JQueryBehavior setOption(String key, List<?> values)
-	{
-		if (this.options == null)
-		{
+	public JQueryBehavior setOption(String key, List<?> values) {
+		if (this.options == null) {
 			throw new WicketRuntimeException(NULL_OPTIONS);
 		}
 
@@ -210,20 +209,18 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	 *
 	 * @return the {@link Options}
 	 */
-	public Options getOptions()
-	{
+	public Options getOptions() {
 		return this.options;
 	}
 
 	/**
 	 * Adds or replace behavior options
 	 *
-	 * @param options the {@link Options}
+	 * @param options
+	 *            the {@link Options}
 	 */
-	public void setOptions(Options options)
-	{
-		for (Entry<String, Object> option : options.entries())
-		{
+	public void setOptions(Options options) {
+		for (Entry<String, Object> option : options.entries()) {
 			this.setOption(option.getKey(), option.getValue());
 		}
 	}
@@ -233,81 +230,89 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 	/**
 	 * Registers a jQuery event callback
 	 *
-	 * @param event the jQuery event (ie: "click")
-	 * @param callback the jQuery callback
+	 * @param event
+	 *            the jQuery event (ie: "click")
+	 * @param callback
+	 *            the jQuery callback
 	 */
-	protected void on(String event, String callback)
-	{
+	protected void on(String event, String callback) {
 		this.on(this.selector, event, callback);
 	}
 
 	/**
 	 * Registers a jQuery event callback
 	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param event the jQuery event (ie: "click")
-	 * @param callback the jQuery callback
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param event
+	 *            the jQuery event (ie: "click")
+	 * @param callback
+	 *            the jQuery callback
 	 */
-	protected void on(String selector, String event, String callback)
-	{
-		this.on(String.format("jQuery('%s').on('%s', %s);", selector, event, callback));
+	protected void on(String selector, String event, String callback) {
+		this.regOn(event, String.format("jQuery('%s').on('%s', %s);", selector,
+				event, callback));
 	}
 
 	/**
 	 * Registers a jQuery event statement
 	 *
-	 * @param statement the jQuery statement (ie: "jQuery('#myId').on('click', function() {});")
+	 * @param statement
+	 *            the jQuery statement (ie:
+	 *            "jQuery('#myId').on('click', function() {});")
 	 */
-	protected synchronized void on(String statement)
-	{
-		if (this.events == null)
-		{
-			this.events = new ArrayList<String>();
+	private synchronized void regOn(String event, String statement) {
+		if (this.events == null) {
+			this.events = new HashMap<String, String>();
 		}
 
-		this.events.add(statement);
+		this.events.put(event, statement);
 	}
 
 	@Override
-	protected String $()
-	{
-		return JQueryBehavior.$(this.selector, this.method, this.options.toString());
+	protected String $() {
+		return JQueryBehavior.$(this.selector, this.method,
+				this.options.toString());
 	}
 
 	/**
 	 * Gets the jQuery statement.<br/>
-	 * <b>Warning: </b> This method is *not* called by the behavior directly (only {@link #$()} is).
+	 * <b>Warning: </b> This method is *not* called by the behavior directly
+	 * (only {@link #$()} is).
 	 *
-	 * @param options the list of options to be supplied to the current method
+	 * @param options
+	 *            the list of options to be supplied to the current method
 	 * @return the jQuery statement
 	 */
-	public String $(Object... options)
-	{
+	public String $(Object... options) {
 		return this.$(Options.fromArray(options));
 	}
 
 	/**
 	 * Gets the jQuery statement.<br/>
-	 * <b>Warning: </b> This method is *not* called by the behavior directly (only {@link #$()} is).
+	 * <b>Warning: </b> This method is *not* called by the behavior directly
+	 * (only {@link #$()} is).
 	 *
-	 * @param options the options to be supplied to the current method
+	 * @param options
+	 *            the options to be supplied to the current method
 	 * @return the jQuery statement
 	 */
-	public String $(String options)
-	{
+	public String $(String options) {
 		return JQueryBehavior.$(this.selector, this.method, options);
 	}
 
 	/**
 	 * Gets the jQuery statement.
 	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param method the jQuery method to invoke
-	 * @param options the options to be applied
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param method
+	 *            the jQuery method to invoke
+	 * @param options
+	 *            the options to be applied
 	 * @return the jQuery statement
 	 */
-	private static String $(String selector, String method, String options)
-	{
+	private static String $(String selector, String method, String options) {
 		return String.format("jQuery('%s').%s(%s);", selector, method, options);
 	}
 
@@ -315,32 +320,36 @@ public class JQueryBehavior extends JQueryAbstractBehavior
 
 	/**
 	 * {@inheritDoc} <br/>
-	 * Also, {@link #onConfigure(Component)} will call {@link IJQueryWidget#onConfigure(JQueryBehavior)} (if the component IS-A {@link IJQueryWidget})<br/>
-	 * If a property set is in {@link #onConfigure(Component)} is needed in {@link IJQueryWidget#onConfigure(JQueryBehavior)}, <code>super.onConfigure(component)</code> should be the last statement.
+	 * Also, {@link #onConfigure(Component)} will call
+	 * {@link IJQueryWidget#onConfigure(JQueryBehavior)} (if the component IS-A
+	 * {@link IJQueryWidget})<br/>
+	 * If a property set is in {@link #onConfigure(Component)} is needed in
+	 * {@link IJQueryWidget#onConfigure(JQueryBehavior)},
+	 * <code>super.onConfigure(component)</code> should be the last statement.
 	 */
 	@Override
-	public void onConfigure(Component component)
-	{
+	public void onConfigure(Component component) {
 		super.onConfigure(component);
 
-		if (component instanceof IJQueryWidget)
-		{
+		if (component instanceof IJQueryWidget) {
 			((IJQueryWidget) component).onConfigure(this);
 		}
 	}
 
 	/**
 	 * {@inheritDoc} <br/>
-	 * Also, {@link #beforeRender(Component)} will call {@link IJQueryWidget#onBeforeRender(JQueryBehavior)} (if the component IS-A {@link IJQueryWidget})<br/>
-	 * If a property set is in {@link #beforeRender(Component)} is needed in {@link IJQueryWidget#onBeforeRender(JQueryBehavior)}, <code>super.beforeRender(component)</code> should be the last statement.
+	 * Also, {@link #beforeRender(Component)} will call
+	 * {@link IJQueryWidget#onBeforeRender(JQueryBehavior)} (if the component
+	 * IS-A {@link IJQueryWidget})<br/>
+	 * If a property set is in {@link #beforeRender(Component)} is needed in
+	 * {@link IJQueryWidget#onBeforeRender(JQueryBehavior)},
+	 * <code>super.beforeRender(component)</code> should be the last statement.
 	 */
 	@Override
-	public void beforeRender(Component component)
-	{
+	public void beforeRender(Component component) {
 		super.beforeRender(component);
 
-		if (component instanceof IJQueryWidget)
-		{
+		if (component instanceof IJQueryWidget) {
 			((IJQueryWidget) component).onBeforeRender(this);
 		}
 	}

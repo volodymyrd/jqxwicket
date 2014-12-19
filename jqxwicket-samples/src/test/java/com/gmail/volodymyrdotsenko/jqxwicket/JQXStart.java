@@ -8,7 +8,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class Start {
+public class JQXStart {
     public static void main(String[] args) throws Exception {
         int timeout = (int) Duration.ONE_HOUR.getMilliseconds();
 

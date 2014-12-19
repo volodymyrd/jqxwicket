@@ -41,8 +41,10 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.utils.RequestCycleUtils;
  */
 public abstract class TabsBehavior extends JQueryUIBehavior implements
 		IJQueryAjaxAware, ITabsListener {
+
 	private static final long serialVersionUID = 1L;
 	private static final String METHOD = "jqxTabs";
+	private String selector;
 
 	private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
@@ -56,6 +58,8 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	 */
 	public TabsBehavior(String selector) {
 		super(selector, METHOD);
+
+		this.selector = selector;
 	}
 
 	/**
@@ -68,6 +72,8 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	 */
 	public TabsBehavior(String selector, Options options) {
 		super(selector, METHOD, options);
+
+		this.selector = selector;
 	}
 
 	// Properties //
@@ -104,8 +110,8 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 		super.bind(component);
 
 		if (this.isCreateEventEnabled()) {
-			component.add(this.createEventBehavior = this
-					.newActivateEventBehavior());
+			// component.add(this.createEventBehavior = this
+			// .newActivateEventBehavior());
 		}
 
 		if (this.isActivateEventEnabled()) {
@@ -136,21 +142,24 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	public void onConfigure(Component component) {
 		super.onConfigure(component);
 
-		if (this.createEventBehavior != null) {
-			this.setOption("created",
-					this.createEventBehavior.getCallbackFunction());
-		}
+		// if (this.createEventBehavior != null) {
+		// this.setOption("created",
+		// this.createEventBehavior.getCallbackFunction());
+		// }
 
-		if (this.activateEventBehavior != null) {
-			//this.setOption("selectedItem",
-				//this.activateEventBehavior.getCallbackFunction());
-			//on("#tabs1", "selected", "function(){console.log('selected');}");
-		}
+		// if (this.activateEventBehavior != null) {
+		// this.on("selected",
+		// this.activateEventBehavior.getCallbackFunction());
+		// "function(event){ var selectedTab = event.args.item; "
+		// + "console.log('The selected tab is '+ selectedTab)}");
+		// }
 
-		if (this.activatingEventBehavior != null) {
-			this.setOption("beforeActivate",
-					this.activatingEventBehavior.getCallbackFunction());
-		}
+		// if (this.activatingEventBehavior != null) {
+		// this.setOption("beforeActivate",
+		// this.activatingEventBehavior.getCallbackFunction());
+		// }
+		
+		new SelectedEvent();
 	}
 
 	@Override
@@ -271,5 +280,58 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	 * {@link JQueryAjaxBehavior} 'beforeActivate' callback
 	 */
 	protected static class ActivatingEvent extends ActivateEvent {
+	}
+
+	private class SelectedEvent extends JQueryUIBehavior implements
+			IJQueryAjaxAware {
+
+		private JQueryAjaxBehavior selectedEventBehavior;
+
+		@Override
+		public void onConfigure(Component component) {
+			super.onConfigure(component);
+
+			this.on("selected",
+					this.selectedEventBehavior.getCallbackFunction());
+			// "function(event){ var selectedTab = event.args.item; "
+			// + "console.log('The selected tab is '+ selectedTab)}");
+		}
+
+		@Override
+		public void bind(Component component) {
+			super.bind(component);
+
+			selectedEventBehavior = new JQueryAjaxBehavior(this) {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected CallbackParameter[] getCallbackParameters() {
+					return new CallbackParameter[] {
+							CallbackParameter.context("event"),
+							CallbackParameter.context("ui"),
+							CallbackParameter
+									.resolved("index",
+											"jQuery(event.target).jqxTabs('option', 'selectedItem')"), };
+				}
+
+				@Override
+				protected JQueryEvent newEvent() {
+					return new ActivatingEvent();
+				}
+			};
+
+			component.add(selectedEventBehavior);
+		}
+
+		public SelectedEvent() {
+			super(TabsBehavior.this.selector, METHOD);
+
+		}
+
+		@Override
+		public void onAjax(AjaxRequestTarget target, JQueryEvent event) {
+			System.out.println("onAjax");
+		}
 	}
 }

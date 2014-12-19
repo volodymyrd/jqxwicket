@@ -212,5 +212,4 @@ public abstract class JQueryAjaxBehavior extends AbstractDefaultAjaxBehavior
 	{
 		return super.getCallbackFunction(this.getCallbackParameters()).toString();
 	}
-
 }
