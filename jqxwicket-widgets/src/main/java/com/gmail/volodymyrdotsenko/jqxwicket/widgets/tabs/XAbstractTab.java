@@ -7,25 +7,25 @@ public abstract class XAbstractTab extends AbstractTab implements IXTab{
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean closeable;
+	private boolean closable;
 
 	public XAbstractTab(IModel<String> title) {
 		super(title);
 	}
 
-	public XAbstractTab(IModel<String> title, boolean closeable) {
+	public XAbstractTab(IModel<String> title, boolean closable) {
 		super(title);
 		
-		this.closeable = closeable;
+		this.closable = closable;
 	}
 
 	@Override
-	public boolean isCloseable() {
-		return closeable;
+	public boolean isClosable() {
+		return closable;
 	}
 
 	@Override
-	public void setCloseable(boolean closeable) {
-		this.closeable = closeable;
+	public void setClosable(boolean closable) {
+		this.closable = closable;
 	}
 }

@@ -114,7 +114,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 		List<IXTab> tabs = getVisibleTabs();
 
 		for (IXTab tab : tabs) {
-			if (tab.isCloseable()) {
+			if (tab.isClosable()) {
 				JQueryAjaxBehavior closeEvent = this.newCloseTabEventBehavior();
 				component.add(closeEvent);
 				this.closeTabEventBehaviors.add(closeEvent);
