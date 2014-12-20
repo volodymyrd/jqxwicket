@@ -29,7 +29,7 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 
 /**
  * Provides a default implementation of {@link JQueryAbstractBehavior}.
- *
+ * 
  * @author Sebastien Briquet - sebfz1
  * @since 1.0
  */
@@ -42,10 +42,11 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 	protected final Options options;
 
 	private Map<String, String> events = null;
+	private Map<String, String> methods = null;
 
 	/**
 	 * Constructor
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 */
@@ -55,7 +56,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Constructor
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 * @param method
@@ -67,7 +68,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Constructor
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 * @param method
@@ -101,12 +102,27 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 			response.render(JavaScriptHeaderItem.forScript(statements,
 					this.getToken() + "-events"));
 		}
+
+		// renders javascript methods
+		if (this.methods != null) {
+			StringBuilder statements = new StringBuilder("jQuery(function() { ");
+
+			for (Map.Entry<String, String> method : this.methods.entrySet()) {
+				statements.append(method.getValue());
+			}
+
+			statements.append(" });");
+
+			response.render(JavaScriptHeaderItem.forScript(statements,
+					this.getToken() + "-methods"));
+		}
+
 	}
 
 	// Properties //
 	/**
 	 * Gets the selector
-	 *
+	 * 
 	 * @return the selector
 	 */
 	public String getSelector() {
@@ -115,7 +131,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Sets the selector
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 */
@@ -125,7 +141,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Gets the jQuery method
-	 *
+	 * 
 	 * @return the method
 	 */
 	public String getMethod() {
@@ -134,7 +150,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Gets a behavior option, referenced by its key
-	 *
+	 * 
 	 * @param key
 	 *            the option key
 	 * @return null if the key does not exists
@@ -149,7 +165,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Sets a behavior option.
-	 *
+	 * 
 	 * @param key
 	 *            the option key
 	 * @param value
@@ -168,7 +184,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Sets a behavior option, with multiple values.
-	 *
+	 * 
 	 * @param key
 	 *            the option key
 	 * @param values
@@ -187,7 +203,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Sets a behavior option, with multiple values.
-	 *
+	 * 
 	 * @param key
 	 *            the option key
 	 * @param values
@@ -206,7 +222,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Gets the {@link Options}
-	 *
+	 * 
 	 * @return the {@link Options}
 	 */
 	public Options getOptions() {
@@ -215,7 +231,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Adds or replace behavior options
-	 *
+	 * 
 	 * @param options
 	 *            the {@link Options}
 	 */
@@ -229,7 +245,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Registers a jQuery event callback
-	 *
+	 * 
 	 * @param event
 	 *            the jQuery event (ie: "click")
 	 * @param callback
@@ -241,7 +257,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Registers a jQuery event callback
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 * @param event
@@ -256,7 +272,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Registers a jQuery event statement
-	 *
+	 * 
 	 * @param statement
 	 *            the jQuery statement (ie:
 	 *            "jQuery('#myId').on('click', function() {});")
@@ -269,6 +285,34 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 		this.events.put(event, statement);
 	}
 
+	/**
+	 * Registers a jQuery method statement
+	 * 
+	 * @param statement
+	 *            the jQuery statement (ie:
+	 *            "jQuery('#myId').method('option', ..., 'option');")
+	 */
+	private synchronized void regMethod(String method, String statement) {
+		if (this.methods == null) {
+			this.methods = new HashMap<String, String>();
+		}
+
+		this.methods.put(method, statement);
+	}
+
+	/**
+	 * Gets the jQuery statement.<br/>
+	 * <b>Warning: </b> This method is *not* called by the behavior directly
+	 * (only {@link #$()} is).
+	 * 
+	 * @param options
+	 *            the list of options to be supplied to the current method
+	 * @return the jQuery statement
+	 */
+	public void method(String method, Object... options) {
+		regMethod(method, this.$(options));
+	}
+
 	@Override
 	protected String $() {
 		return JQueryBehavior.$(this.selector, this.method,
@@ -279,7 +323,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 	 * Gets the jQuery statement.<br/>
 	 * <b>Warning: </b> This method is *not* called by the behavior directly
 	 * (only {@link #$()} is).
-	 *
+	 * 
 	 * @param options
 	 *            the list of options to be supplied to the current method
 	 * @return the jQuery statement
@@ -292,7 +336,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 	 * Gets the jQuery statement.<br/>
 	 * <b>Warning: </b> This method is *not* called by the behavior directly
 	 * (only {@link #$()} is).
-	 *
+	 * 
 	 * @param options
 	 *            the options to be supplied to the current method
 	 * @return the jQuery statement
@@ -303,7 +347,7 @@ public class JQueryBehavior extends JQueryAbstractBehavior {
 
 	/**
 	 * Gets the jQuery statement.
-	 *
+	 * 
 	 * @param selector
 	 *            the html selector (ie: "#myId")
 	 * @param method

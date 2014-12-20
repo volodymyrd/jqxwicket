@@ -44,10 +44,11 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	private static final long serialVersionUID = 1L;
 	private static final String METHOD = "jqxTabs";
 
-	private JQueryAjaxBehavior createEventBehavior = null;
+	// private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
+	private List<JQueryAjaxBehavior> closeTabEventBehaviors = new ArrayList<JQueryAjaxBehavior>();
 
-	private JQueryAjaxBehavior closeEventBehavior = null;
+	// private JQueryAjaxBehavior closeEventBehavior = null;
 
 	// private JQueryAjaxBehavior activatingEventBehavior = null;
 
@@ -114,7 +115,9 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 		for (IXTab tab : tabs) {
 			if (tab.isCloseable()) {
-				System.out.println(tab.getTitle());
+				JQueryAjaxBehavior closeEvent = this.newCloseTabEventBehavior();
+				component.add(closeEvent);
+				this.closeTabEventBehaviors.add(closeEvent);
 			}
 		}
 
@@ -163,6 +166,12 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 			// + "console.log('The selected tab is '+ selectedTab)}");
 		}
 
+		for (int i = 0; i < this.closeTabEventBehaviors.size(); i++) {
+			this.method("showCloseButtonAt", "'showCloseButtonAt'", i);
+			this.on("removed", this.closeTabEventBehaviors.get(i)
+					.getCallbackFunction());
+		}
+
 		// if (this.activatingEventBehavior != null) {
 		// this.setOption("beforeActivate",
 		// this.activatingEventBehavior.getCallbackFunction());
@@ -187,11 +196,15 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 					((AjaxTab) tab).load(target);
 				}
 
-				if (event instanceof ActivatingEvent) {
-					this.onActivating(target, index, tab);
-				} else {
-					this.onActivate(target, index, tab);
-				}
+				this.onActivate(target, index, tab);
+			}
+		}
+
+		if (event instanceof CloseTabEvent) {
+			int index = ((CloseTabEvent) event).getIndex();
+			List<IXTab> tabs = getTabs();
+			if (-1 < index && index < tabs.size()) {
+				tabs.remove(index);
 			}
 		}
 	}
@@ -219,6 +232,31 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 			@Override
 			protected JQueryEvent newEvent() {
 				return new ActivateEvent();
+			}
+		};
+	}
+
+	/**
+	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'removed'
+	 * javascript callback
+	 * 
+	 * @return the {@link JQueryAjaxBehavior}
+	 */
+	protected JQueryAjaxBehavior newCloseTabEventBehavior() {
+		return new JQueryAjaxBehavior(this) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected CallbackParameter[] getCallbackParameters() {
+				return new CallbackParameter[] {
+						CallbackParameter.context("event"),
+						CallbackParameter.resolved("index", "event.args.item") };
+			}
+
+			@Override
+			protected JQueryEvent newEvent() {
+				return new CloseTabEvent();
 			}
 		};
 	}
@@ -255,7 +293,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	/**
 	 * Provides an event object that will be broadcasted by the
-	 * {@link JQueryAjaxBehavior} 'activate' callback
+	 * {@link JQueryAjaxBehavior} 'selected' callback
 	 */
 	protected static class ActivateEvent extends JQueryEvent {
 		private final int index;
@@ -282,8 +320,29 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	/**
 	 * Provides an event object that will be broadcasted by the
-	 * {@link JQueryAjaxBehavior} 'beforeActivate' callback
+	 * {@link JQueryAjaxBehavior} 'removed' callback
 	 */
-	protected static class ActivatingEvent extends ActivateEvent {
+	protected static class CloseTabEvent extends JQueryEvent {
+
+		private final int index;
+
+		/**
+		 * Constructor
+		 */
+		public CloseTabEvent() {
+			super();
+
+			this.index = RequestCycleUtils.getQueryParameterValue("index")
+					.toInt(-1);
+		}
+
+		/**
+		 * Gets the tab's index
+		 * 
+		 * @return the index
+		 */
+		public int getIndex() {
+			return this.index;
+		}
 	}
 }

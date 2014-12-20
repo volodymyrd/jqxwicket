@@ -28,188 +28,205 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.JQueryBehavior;
 import com.gmail.volodymyrdotsenko.jqxwicket.core.JQueryEvent;
 
 /**
- * Base class for implementing AJAX GET calls to a {@link IJQueryAjaxAware} source, which is usually a {@link JQueryBehavior}<br />
+ * Base class for implementing AJAX GET calls to a {@link IJQueryAjaxAware}
+ * source, which is usually a {@link JQueryBehavior}<br />
  * <br />
  * <b>Example</b>
+ * 
  * <pre>
-interface IMyJQueryListener
-{
-	void onMyEvent(AjaxRequestTarget target);
-}
-
-public class MyJQueryLabel extends Label implements IJQueryWidget, IMyJQueryListener
-{
-	private static final long serialVersionUID = 1L;
-
-	public MyJQueryLabel(String id)
-	{
-		super(id);
-	}
-
-	// Events //
-	protected void onInitialize()
-	{
-		super.onInitialize();
-
-		this.add(JQueryWidget.newWidgetBehavior(this));
-	}
-
-	public void onMyEvent(AjaxRequestTarget target)
-	{
-		// do something here
-	}
-
-	public JQueryBehavior newWidgetBehavior(String selector)
-	{
-		return new MyJQueryBehavior(selector, "jquerymethod") {
-
-			private static final long serialVersionUID = 1L;
-
-			public void onMyEvent(AjaxRequestTarget target)
-			{
-				MyJQueryLabel.this.onMyEvent(target);
-			}
-		};
-	}
-
-	static abstract class MyJQueryBehavior extends JQueryBehavior implements IJQueryAjaxAware, IMyJQueryListener
-	{
-		private static final long serialVersionUID = 1L;
-		private JQueryAjaxBehavior onMyEventBehavior;
-
-		public MyJQueryBehavior(String selector, String method)
-		{
-			super(selector, method);
-		}
-
-		public void bind(Component component)
-		{
-			super.bind(component);
-
-			component.add(this.onMyEventBehavior = this.newJQueryAjaxBehavior());
-		}
-
-		// Events //
-		public void onConfigure(Component component)
-		{
-			super.onConfigure(component);
-
-			this.setOption("jqueryevent", this.onMyEventBehavior.getCallbackFunction());
-		}
-
-		public void onAjax(AjaxRequestTarget target, JQueryEvent event)
-		{
-			if (event instanceof MyEvent)
-			{
-				this.onMyEvent(target);
-			}
-		}
-
-		// Factory //
-		protected JQueryAjaxBehavior newJQueryAjaxBehavior()
-		{
-			return new JQueryAjaxBehavior(this) {
-
-				private static final long serialVersionUID = 1L;
-
-				protected CallbackParameter[] getCallbackParameters()
-				{
-					return new CallbackParameter[] { CallbackParameter.context("event"), CallbackParameter.context("ui") };
-				}
-
-				protected JQueryEvent newEvent()
-				{
-					return new MyEvent();
-				}
-			};
-		}
-
-		// Event Class //
-		protected static class MyEvent extends JQueryEvent
-		{
-		}
-	}
-}
+ * interface IMyJQueryListener {
+ * 	void onMyEvent(AjaxRequestTarget target);
+ * }
+ * 
+ * public class MyJQueryLabel extends Label implements IJQueryWidget,
+ * 		IMyJQueryListener {
+ * 	private static final long serialVersionUID = 1L;
+ * 
+ * 	public MyJQueryLabel(String id) {
+ * 		super(id);
+ * 	}
+ * 
+ * 	// Events //
+ * 	protected void onInitialize() {
+ * 		super.onInitialize();
+ * 
+ * 		this.add(JQueryWidget.newWidgetBehavior(this));
+ * 	}
+ * 
+ * 	public void onMyEvent(AjaxRequestTarget target) {
+ * 		// do something here
+ * 	}
+ * 
+ * 	public JQueryBehavior newWidgetBehavior(String selector) {
+ * 		return new MyJQueryBehavior(selector, &quot;jquerymethod&quot;) {
+ * 
+ * 			private static final long serialVersionUID = 1L;
+ * 
+ * 			public void onMyEvent(AjaxRequestTarget target) {
+ * 				MyJQueryLabel.this.onMyEvent(target);
+ * 			}
+ * 		};
+ * 	}
+ * 
+ * 	static abstract class MyJQueryBehavior extends JQueryBehavior implements
+ * 			IJQueryAjaxAware, IMyJQueryListener {
+ * 		private static final long serialVersionUID = 1L;
+ * 		private JQueryAjaxBehavior onMyEventBehavior;
+ * 
+ * 		public MyJQueryBehavior(String selector, String method) {
+ * 			super(selector, method);
+ * 		}
+ * 
+ * 		public void bind(Component component) {
+ * 			super.bind(component);
+ * 
+ * 			component
+ * 					.add(this.onMyEventBehavior = this.newJQueryAjaxBehavior());
+ * 		}
+ * 
+ * 		// Events //
+ * 		public void onConfigure(Component component) {
+ * 			super.onConfigure(component);
+ * 
+ * 			this.setOption(&quot;jqueryevent&quot;,
+ * 					this.onMyEventBehavior.getCallbackFunction());
+ * 		}
+ * 
+ * 		public void onAjax(AjaxRequestTarget target, JQueryEvent event) {
+ * 			if (event instanceof MyEvent) {
+ * 				this.onMyEvent(target);
+ * 			}
+ * 		}
+ * 
+ * 		// Factory //
+ * 		protected JQueryAjaxBehavior newJQueryAjaxBehavior() {
+ * 			return new JQueryAjaxBehavior(this) {
+ * 
+ * 				private static final long serialVersionUID = 1L;
+ * 
+ * 				protected CallbackParameter[] getCallbackParameters() {
+ * 					return new CallbackParameter[] {
+ * 							CallbackParameter.context(&quot;event&quot;),
+ * 							CallbackParameter.context(&quot;ui&quot;) };
+ * 				}
+ * 
+ * 				protected JQueryEvent newEvent() {
+ * 					return new MyEvent();
+ * 				}
+ * 			};
+ * 		}
+ * 
+ * 		// Event Class //
+ * 		protected static class MyEvent extends JQueryEvent {
+ * 		}
+ * 	}
+ * }
  * </pre>
- *
+ * 
  * @author Sebastien Briquet - sebfz1
- *
+ * 
  */
-public abstract class JQueryAjaxBehavior extends AbstractDefaultAjaxBehavior
-{
+public abstract class JQueryAjaxBehavior extends AbstractDefaultAjaxBehavior {
 	private static final long serialVersionUID = 1L;
 
 	private final IJQueryAjaxAware source;
 	private final Duration duration;
 
-
+	private String logStatement = "";
+	
+	public JQueryAjaxBehavior(IJQueryAjaxAware source, String logStatement) {
+		this(source);
+		
+		this.logStatement = logStatement;
+	}	
+	
 	/**
 	 * Constructor
-	 * @param source {@link Behavior} to which the event - returned by {@link #newEvent()} - will be broadcasted.
+	 * 
+	 * @param source
+	 *            {@link Behavior} to which the event - returned by
+	 *            {@link #newEvent()} - will be broadcasted.
 	 */
-	public JQueryAjaxBehavior(IJQueryAjaxAware source)
-	{
+	public JQueryAjaxBehavior(IJQueryAjaxAware source) {
 		this(source, Duration.NONE);
 	}
 
 	/**
 	 * Constructor
-	 * @param source {@link Behavior} to which the event - returned by {@link #newEvent()} - will be broadcasted.
-	 * @param duration {@link Duration}. If different than {@link Duration#NONE}, an {@link ThrottlingSettings} will be added with the specified {@link Duration}.
+	 * 
+	 * @param source
+	 *            {@link Behavior} to which the event - returned by
+	 *            {@link #newEvent()} - will be broadcasted.
+	 * @param duration
+	 *            {@link Duration}. If different than {@link Duration#NONE}, an
+	 *            {@link ThrottlingSettings} will be added with the specified
+	 *            {@link Duration}.
 	 */
-	public JQueryAjaxBehavior(IJQueryAjaxAware source, Duration duration)
-	{
+	public JQueryAjaxBehavior(IJQueryAjaxAware source, Duration duration) {
 		this.source = source;
 		this.duration = duration;
 	}
 
 	@Override
-	protected void respond(AjaxRequestTarget target)
-	{
-		if (this.source != null)
-		{
+	protected void respond(AjaxRequestTarget target) {
+		if (this.source != null) {
 			this.source.onAjax(target, this.newEvent());
 		}
 	}
 
 	/**
-	 * Gets the {@link JQueryEvent} to be broadcasted to the {@link IJQueryAjaxAware} source when the behavior will respond
+	 * Gets the {@link JQueryEvent} to be broadcasted to the
+	 * {@link IJQueryAjaxAware} source when the behavior will respond
+	 * 
 	 * @return the {@link JQueryEvent}
 	 */
 	protected abstract JQueryEvent newEvent();
 
-
 	// wicket 6.x //
 	@Override
-	protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
-	{
+	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
 		super.updateAjaxAttributes(attributes);
 
-		if (this.duration != Duration.NONE)
-		{
-			attributes.setThrottlingSettings(new ThrottlingSettings("jquery-throttle", this.duration));
+		if (this.duration != Duration.NONE) {
+			attributes.setThrottlingSettings(new ThrottlingSettings(
+					"jquery-throttle", this.duration));
 		}
 	}
 
 	/**
-	 * Gets the {@link CallbackParameter}<code>s</code> that *may* be passed to {@link #getCallbackFunction(CallbackParameter...)}<br/>
-	 * This is a convenience method that allows to define {@link CallbackParameter}<code>s</code> before the invocation of {@link #getCallbackFunction(CallbackParameter...)}.
-	 *
+	 * Gets the {@link CallbackParameter}<code>s</code> that *may* be passed to
+	 * {@link #getCallbackFunction(CallbackParameter...)}<br/>
+	 * This is a convenience method that allows to define
+	 * {@link CallbackParameter}<code>s</code> before the invocation of
+	 * {@link #getCallbackFunction(CallbackParameter...)}.
+	 * 
 	 * @return an array of {@link CallbackParameter}
 	 * @see #getCallbackFunction()
 	 */
-	protected CallbackParameter[] getCallbackParameters()
-	{
+	protected CallbackParameter[] getCallbackParameters() {
 		return new CallbackParameter[] {};
 	}
 
 	/**
-	 * Calls {@link #getCallbackFunction(CallbackParameter...)} by passing {@link CallbackParameter}<code>s</code> from {@link #getCallbackParameters()}
-	 *
+	 * Calls {@link #getCallbackFunction(CallbackParameter...)} by passing
+	 * {@link CallbackParameter}<code>s</code> from
+	 * {@link #getCallbackParameters()}
+	 * 
 	 * @return the javascript function.
 	 */
-	public String getCallbackFunction()
-	{
-		return super.getCallbackFunction(this.getCallbackParameters()).toString();
+	public String getCallbackFunction() {
+		return super.getCallbackFunction(this.getCallbackParameters())
+				.toString();
+	}
+
+	@Override
+	public CharSequence getCallbackFunctionBody(
+			CallbackParameter... extraParameters) {
+
+		CharSequence body = super.getCallbackFunctionBody(extraParameters);
+
+		body = logStatement + "\n" + body;
+		
+		return body;
 	}
 }
