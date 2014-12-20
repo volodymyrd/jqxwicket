@@ -24,28 +24,29 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.settings.JQueryUILibrarySet
 
 /**
  * Provides the {@link IInitializer} for this theme
- *
+ * 
  * @author Sebastien Briquet - sebfz1
  */
-public class Initializer implements IInitializer
-{
+public class Initializer implements IInitializer {
 	@Override
-	public void init(Application application)
-	{
+	public void init(Application application) {
 		application.getMarkupSettings().setStripWicketTags(true);
 
-		JQueryUILibrarySettings.get().setStyleSheetReference(new CssResourceReference(Initializer.class, "jqx.base.css"));
+		JQueryUILibrarySettings.get().setBasestyleSheetReference(
+				new CssResourceReference(Initializer.class, "jqx.base.css"));
+
+		JQueryUILibrarySettings.get().setStyleSheetReference(
+				new CssResourceReference(Initializer.class,
+						"jqx.darkblue.css", null, "darkblue", null));
 	}
 
 	@Override
-	public void destroy(Application application)
-	{
+	public void destroy(Application application) {
 		// noop
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Wicket extensions initializer (wickets-jqwidgets-theme-base)";
 	}
 }

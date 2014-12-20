@@ -27,54 +27,62 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.settings.JQueryUILibrarySet
 
 /**
  * Provides the base class for every jQuery behavior.
- *
+ * 
  * @author Sebastien Briquet - sebfz1
- *
+ * 
  */
-public class JQueryUIBehavior extends JQueryBehavior
-{
+public class JQueryUIBehavior extends JQueryBehavior {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = LoggerFactory.getLogger(JQueryUIBehavior.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(JQueryUIBehavior.class);
 
 	/**
 	 * Constructor
-	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param method the kendo-ui method
+	 * 
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param method
+	 *            the kendo-ui method
 	 */
-	public JQueryUIBehavior(String selector, String method)
-	{
+	public JQueryUIBehavior(String selector, String method) {
 		this(selector, method, new Options());
 	}
 
 	/**
 	 * Constructor
-	 *
-	 * @param selector the html selector (ie: "#myId")
-	 * @param method the kendo-ui method
-	 * @param options the {@link Options}
+	 * 
+	 * @param selector
+	 *            the html selector (ie: "#myId")
+	 * @param method
+	 *            the kendo-ui method
+	 * @param options
+	 *            the {@link Options}
 	 */
-	public JQueryUIBehavior(String selector, String method, Options options)
-	{
+	public JQueryUIBehavior(String selector, String method, Options options) {
 		super(selector, method, options);
 
 		this.initReferences();
+
+		this.setOption("theme", "\""
+				+ JQueryUILibrarySettings.get().getStyleSheetReference()
+						.getStyle() + "\"");
 	}
 
 	/**
 	 * Initializes CSS & JavaScript resource references
 	 */
-	private void initReferences()
-	{
+	private void initReferences() {
 		JQueryUILibrarySettings settings = JQueryUILibrarySettings.get();
 
-		if (settings.getJavaScriptReference() != null)
-		{
+		if (settings.getJavaScriptReference() != null) {
 			this.add(settings.getJavaScriptReference());
 		}
 
-		if (settings.getStyleSheetReference() != null)
-		{
+		if (settings.getBasestyleSheetReference() != null) {
+			this.add(settings.getBasestyleSheetReference());
+		}
+
+		if (settings.getStyleSheetReference() != null) {
 			this.add(settings.getStyleSheetReference());
 		}
 	}
@@ -82,12 +90,10 @@ public class JQueryUIBehavior extends JQueryBehavior
 	// Events //
 
 	@Override
-	public void onConfigure(Component component)
-	{
+	public void onConfigure(Component component) {
 		super.onConfigure(component);
 
-		if (!Application.get().getMarkupSettings().getStripWicketTags())
-		{
+		if (!Application.get().getMarkupSettings().getStripWicketTags()) {
 			LOG.warn("Application > MarkupSettings > StripWicketTags: setting is currently set to false. It is highly recommended to set it to true to prevent widget misbehaviors.");
 		}
 	}

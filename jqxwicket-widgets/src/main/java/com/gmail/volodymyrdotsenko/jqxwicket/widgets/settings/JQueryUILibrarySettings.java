@@ -24,7 +24,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.resource.JQXResourceReferen
  * Provides library settings for jQuery UI resource references<br/>
  * <br/>
  * Usage:
- *
+ * 
  * <pre>
  * <code>
  * public class MyApplication extends WebApplication
@@ -32,7 +32,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.resource.JQXResourceReferen
  *     public void init()
  *     {
  *         super.init();
- *
+ * 
  *         JQueryUILibrarySettings settings = JQueryUILibrarySettings.get();
  *         settings.setJavaScriptReference(new JavaScriptResourceReference(...)); // if you want to change the js version
  *         settings.setStyleSheetReference(new CssResourceReference(MyApplication.class, "jquery-ui.custom.min.css"));
@@ -40,25 +40,23 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.resource.JQXResourceReferen
  * }
  * </code>
  * </pre>
- *
+ * 
  * @author Sebastien Briquet - sebfz1
  */
-public class JQueryUILibrarySettings
-{
+public class JQueryUILibrarySettings {
 	private static JQueryUILibrarySettings instance = null;
 
 	private ResourceReference javascriptReference = JQXResourceReference.get();
+	private ResourceReference basestylesheetReference = null;
 	private ResourceReference stylesheetReference = null;
 
 	/**
 	 * Gets the {@link JQueryUILibrarySettings} instance
-	 *
+	 * 
 	 * @return the {@link JQueryUILibrarySettings} instance
 	 */
-	public static synchronized JQueryUILibrarySettings get()
-	{
-		if (JQueryUILibrarySettings.instance == null)
-		{
+	public static synchronized JQueryUILibrarySettings get() {
+		if (JQueryUILibrarySettings.instance == null) {
 			JQueryUILibrarySettings.instance = new JQueryUILibrarySettings();
 		}
 
@@ -68,48 +66,69 @@ public class JQueryUILibrarySettings
 	/**
 	 * Constructor
 	 */
-	private JQueryUILibrarySettings()
-	{
+	private JQueryUILibrarySettings() {
 	}
 
 	/**
 	 * Gets the JQuery UI javascript resource reference
-	 *
+	 * 
 	 * @return the {@link ResourceReference}
 	 */
-	public ResourceReference getJavaScriptReference()
-	{
+	public ResourceReference getJavaScriptReference() {
 		return this.javascriptReference;
 	}
 
 	/**
 	 * Sets the jQuery UI javascript resource reference
-	 *
-	 * @param reference the {@link ResourceReference}
+	 * 
+	 * @param reference
+	 *            the {@link ResourceReference}
 	 */
-	public void setJavaScriptReference(ResourceReference reference)
-	{
+	public void setJavaScriptReference(ResourceReference reference) {
 		this.javascriptReference = reference;
 	}
 
 	/**
-	 * Gets the JQuery UI stylesheet resource reference
-	 *
-	 * @return <tt>null</tt> by default, meaning the style is supplied through the HTML page (&lt;link rel="stylesheet" type="text/css" href="..." /&gt;)
+	 * Gets the jqx base stylesheet resource reference
+	 * 
+	 * @return <tt>null</tt> by default, meaning the style is supplied through
+	 *         the HTML page (&lt;link rel="stylesheet" type="text/css"
+	 *         href="..." /&gt;)
 	 * @see #setStyleSheetReference(ResourceReference)
 	 */
-	public ResourceReference getStyleSheetReference()
-	{
+	public ResourceReference getBasestyleSheetReference() {
+		return this.basestylesheetReference;
+	}
+
+	/**
+	 * Sets the jqx base stylesheet resource reference
+	 * 
+	 * @param reference
+	 *            the {@link ResourceReference}
+	 */
+	public void setBasestyleSheetReference(ResourceReference reference) {
+		this.basestylesheetReference = reference;
+	}
+
+	/**
+	 * Gets the JQuery UI stylesheet resource reference
+	 * 
+	 * @return <tt>null</tt> by default, meaning the style is supplied through
+	 *         the HTML page (&lt;link rel="stylesheet" type="text/css"
+	 *         href="..." /&gt;)
+	 * @see #setStyleSheetReference(ResourceReference)
+	 */
+	public ResourceReference getStyleSheetReference() {
 		return this.stylesheetReference;
 	}
 
 	/**
 	 * Sets the jQuery UI stylesheet resource reference
-	 *
-	 * @param reference the {@link ResourceReference}
+	 * 
+	 * @param reference
+	 *            the {@link ResourceReference}
 	 */
-	public void setStyleSheetReference(ResourceReference reference)
-	{
+	public void setStyleSheetReference(ResourceReference reference) {
 		this.stylesheetReference = reference;
 	}
 }
