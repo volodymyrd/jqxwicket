@@ -30,7 +30,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.panel.LabelPanel;
  * @since 1.2.3
  * @since 6.0.1
  */
-public class SimpleTab extends AbstractTab
+public class SimpleTab extends XAbstractTab
 {
 	private static final long serialVersionUID = 1L;
 

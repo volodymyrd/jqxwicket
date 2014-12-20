@@ -23,7 +23,6 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.CallbackParameter;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.JQueryUIBehavior;
 import com.gmail.volodymyrdotsenko.jqxwicket.core.JQueryEvent;
@@ -47,6 +46,8 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
+
+	private JQueryAjaxBehavior closeEventBehavior = null;
 
 	// private JQueryAjaxBehavior activatingEventBehavior = null;
 
@@ -84,7 +85,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	 * 
 	 * @return a non-null {@link List}
 	 */
-	protected abstract List<ITab> getTabs();
+	protected abstract List<IXTab> getTabs();
 
 	/**
 	 * Gets a read-only {@link ITab} {@link List} having its visible flag set to
@@ -92,10 +93,10 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	 * 
 	 * @return a {@link List} of {@link ITab}<tt>s</tt>
 	 */
-	protected List<ITab> getVisibleTabs() {
-		List<ITab> list = new ArrayList<ITab>();
+	protected List<IXTab> getVisibleTabs() {
+		List<IXTab> list = new ArrayList<IXTab>();
 
-		for (ITab tab : this.getTabs()) {
+		for (IXTab tab : this.getTabs()) {
 			if (tab.isVisible()) {
 				list.add(tab);
 			}
@@ -108,6 +109,14 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	@Override
 	public void bind(Component component) {
 		super.bind(component);
+
+		List<IXTab> tabs = getVisibleTabs();
+
+		for (IXTab tab : tabs) {
+			if (tab.isCloseable()) {
+				System.out.println(tab.getTitle());
+			}
+		}
 
 		// if (this.isCreateEventEnabled()) {
 		// component.add(this.createEventBehavior = this
@@ -164,7 +173,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	public void onAjax(AjaxRequestTarget target, JQueryEvent event) {
 		if (event instanceof ActivateEvent) {
 			int index = ((ActivateEvent) event).getIndex();
-			final List<ITab> tabs = this.getVisibleTabs();
+			final List<IXTab> tabs = this.getVisibleTabs();
 
 			if (-1 < index && index < tabs.size()) /*
 													 * index could be unknown
@@ -172,7 +181,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 													 * user action
 													 */
 			{
-				ITab tab = tabs.get(index);
+				IXTab tab = tabs.get(index);
 
 				if (tab instanceof AjaxTab) {
 					((AjaxTab) tab).load(target);

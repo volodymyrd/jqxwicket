@@ -31,7 +31,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.panel.LoadingPanel;
  * @author Sebastien Briquet - sebfz1
  * @since 1.2.1
  */
-public abstract class AjaxTab extends AbstractTab
+public abstract class AjaxTab extends XAbstractTab
 {
 	private static final long serialVersionUID = 1L;
 

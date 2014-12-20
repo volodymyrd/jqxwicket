@@ -17,7 +17,6 @@
 package com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.extensions.markup.html.tabs.ITab;
 
 /**
  * Event listener shared by the {@link TabbedPanel} widget and the {@link TabsBehavior}
@@ -27,6 +26,15 @@ import org.apache.wicket.extensions.markup.html.tabs.ITab;
  */
 interface ITabsListener
 {
+	/**
+	 * Triggered when a tab has been closed ('removed' event).<br/>
+	 *
+	 * @param target the {@link AjaxRequestTarget}
+	 * @param index the tab index that triggered this event
+	 * @param tab the {@link ITab} that corresponds to the index
+	 */
+	void onCloseTab(AjaxRequestTarget target, int index, IXTab tab);
+	
 	/**
 	 * Indicates whether the 'create' event is enabled.<br/>
 	 * If true, the {@link #onActivate(AjaxRequestTarget, int, ITab)} event will be triggered on 'create'<br/>
@@ -62,7 +70,7 @@ interface ITabsListener
 	 * @param index the tab index that triggered this event
 	 * @param tab the {@link ITab} that corresponds to the index
 	 */
-	void onActivate(AjaxRequestTarget target, int index, ITab tab);
+	void onActivate(AjaxRequestTarget target, int index, IXTab tab);
 
 	/**
 	 * Triggered when a tab is being activated ('beforeActivate' event).<br/>
@@ -71,5 +79,5 @@ interface ITabsListener
 	 * @param index the previously selected tab index
 	 * @param tab the {@link ITab} that corresponds to the index
 	 */
-	void onActivating(AjaxRequestTarget target, int index, ITab tab);
+	void onActivating(AjaxRequestTarget target, int index, IXTab tab);
 }

@@ -12,8 +12,10 @@ import org.apache.wicket.model.Model;
 import com.gmail.volodymyrdotsenko.jqxwicket.TemplatePage;
 import com.gmail.volodymyrdotsenko.jqxwicket.core.Options;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs.AjaxTab;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs.IXTab;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs.SimpleTab;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs.TabbedPanel;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs.XAbstractTab;
 
 public class TabbedPanelPage extends TemplatePage {
 	private static final long serialVersionUID = 1L;
@@ -25,14 +27,14 @@ public class TabbedPanelPage extends TemplatePage {
 		this.add(new TabbedPanel("tabs", this.newTabList(), options));
 	}
 
-	private List<ITab> newTabList() {
-		List<ITab> tabs = new ArrayList<ITab>();
+	private List<IXTab> newTabList() {
+		List<IXTab> tabs = new ArrayList<IXTab>();
 
 		// tab #1 //
 		tabs.add(new SimpleTab(Model.of("Tab #1"), Model.of("my content1")));
 
 		// tab #2 //
-		tabs.add(new AbstractTab(Model.of("Tab #2")) {
+		tabs.add(new XAbstractTab(Model.of("Tab #2"), true) {
 
 			private static final long serialVersionUID = 1L;
 
