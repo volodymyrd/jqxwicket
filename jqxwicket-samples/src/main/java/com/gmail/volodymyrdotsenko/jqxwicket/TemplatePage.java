@@ -4,9 +4,8 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
-import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.ButtonsPage;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.buttons.ButtonsDefaultPage;
-import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.tabs.DefaultTabsPage;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.tabs.TabsDefaultPage;
 
 public abstract class TemplatePage extends WebPage {
 
@@ -15,11 +14,11 @@ public abstract class TemplatePage extends WebPage {
 	public TemplatePage() {
 		super();
 
-		add(new Link("id_tabs_default_page_link") {
+		add(new Link("jqxTabs") {
 			@Override
 			public void onClick() {
 				// we redirect browser to another page.
-				setResponsePage(DefaultTabsPage.class);
+				setResponsePage(TabsDefaultPage.class);
 			}
 		});
 

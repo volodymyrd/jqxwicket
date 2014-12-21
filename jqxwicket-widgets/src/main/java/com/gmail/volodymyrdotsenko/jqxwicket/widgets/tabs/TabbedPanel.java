@@ -205,7 +205,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 					// link (tab) //
 					Label link = TabbedPanel.this.newTitleLabel("link",
 							tab.getTitle());
-					link.add(AttributeModifier.replace("href", "#" + newId));
+					//link.add(AttributeModifier.replace("href", "#" + newId));
 					item.add(link);
 
 					// panel //
@@ -216,6 +216,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 		});
 
 		this.add(this.widgetBehavior = this.newWidgetBehavior(JQueryWidget
+
 				.getSelector(this)));
 	}
 

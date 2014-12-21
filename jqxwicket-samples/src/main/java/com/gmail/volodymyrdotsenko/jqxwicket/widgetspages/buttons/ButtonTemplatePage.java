@@ -1,4 +1,4 @@
-package com.gmail.volodymyrdotsenko.jqxwicket.widgetspages;
+package com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.buttons;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.TemplatePage;
 

@@ -5,7 +5,6 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.core.Options;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgets.buttons.XButton;
-import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.ButtonTemplatePage;
 
 public class ButtonsDefaultPage extends ButtonTemplatePage {
 
