@@ -1,7 +1,7 @@
 package com.gmail.volodymyrdotsenko.jqxwicket.widgets.buttons;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.model.IModel;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.core.IJQueryWidget;
@@ -14,7 +14,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.Options;
  * @author Volodymyr Dotsenko
  * 
  */
-public class XButton extends WebMarkupContainer implements IJQueryWidget,
+public class XButton extends WebComponent implements IJQueryWidget,
 		IXButtonListener {
 
 	private static final long serialVersionUID = 1L;
