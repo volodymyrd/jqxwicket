@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<wicket:head>
+	<title>Wicket - jQuery UI: ajax button</title>
+</wicket:head>
+</head>
+<body>
+	<wicket:extend>
+		<div style='width: 150px;' id='jqxWidget'>
+			<div>
+				<input type="button" value="Button" wicket:id='jqxButton' />
+			</div>
+			<div>
+				<input style='margin-top: 20px;' type="submit" value="Submit"
+					wicket:id='jqxSubmitButton' />
+			</div>
+			<div>
+				<input style='margin-top: 20px;' type="Button" value="Disabled"
+					wicket:id='jqxDisabledButton' />
+			</div>
+			<div style='font-size: 12px; font-family: Verdana; margin-top: 10px;'>
+				<div>Events:</div>
+				<div wicket:id='events'></div>
+			</div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

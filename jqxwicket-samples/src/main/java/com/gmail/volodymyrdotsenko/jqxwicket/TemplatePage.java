@@ -5,6 +5,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.ButtonsPage;
+import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.buttons.ButtonsDefaultPage;
 import com.gmail.volodymyrdotsenko.jqxwicket.widgetspages.tabs.DefaultTabsPage;
 
 public abstract class TemplatePage extends WebPage {
@@ -21,15 +22,14 @@ public abstract class TemplatePage extends WebPage {
 				setResponsePage(DefaultTabsPage.class);
 			}
 		});
-		
+
 		add(new Link("jqxButtons") {
 			@Override
 			public void onClick() {
 				// we redirect browser to another page.
-				setResponsePage(ButtonsPage.class);
+				setResponsePage(ButtonsDefaultPage.class);
 			}
 		});
-		
 
 		this.add(new Label("version", getApplication().getFrameworkSettings()
 				.getVersion()));
