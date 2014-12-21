@@ -12,7 +12,7 @@ import com.gmail.volodymyrdotsenko.jqxwicket.widgets.form.button.AjaxButton;
 //import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 
 
-public class ButtonsPage extends TemplatePage {
+public class ButtonsPage extends ButtonTemplatePage {
 	
 	public ButtonsPage() {
 		this.initialize();

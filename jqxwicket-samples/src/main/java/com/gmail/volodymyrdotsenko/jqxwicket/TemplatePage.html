@@ -5,13 +5,531 @@
 <meta name="description" content="Wicket jQuery UI integration" />
 <meta name="keywords"
 	content="wicket jquery, wicket jquery ui, autocomplete, dialog, draggable, droppable, progress bar, wizard, kendo ui, border layout, calendar" />
-<!-- <link rel="stylesheet" type="text/css" href="styles/styles.css" -->
-<!-- 	media="all" /> -->
+<link rel="stylesheet" type="text/css" href="styles/styles.css"
+	media="all" />
 </head>
 <body>
-	<div id="wrapper-panel" class="ui-corner-all">
-		<wicket:child />
+	<div class="top" id="pageTop">
+		<table
+			style="table-layout: fixed; width: 1150px; height: 100%; margin: 0 auto;">
+			<tbody>
+				<tr style="height: 50px;">
+					<td align="left"><a href="/"> <img alt="jqWidgets"
+							src="http://www.jqwidgets.com/wp-admin/images/logo_bw.png"
+							style="margin: 0px; text-align: left; border: 0 none;"></a></td>
+					<td align="right" style="width: 572px">
+						<div>menu</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
+
+	<div class="rc-all pageWrap">
+		<table id="demostable" class="rc-all navigatorOuterTable">
+			<tbody>
+				<tr valign="top">
+					<td>
+						<table cellspacing="0" cellpadding="0" class="navigatorTable">
+							<tbody>
+								<tr>
+									<td valign="top" class="rc-all navigatorInnerContainer"
+										id="Td1" colspan="2">
+										<table class="navigatorInnerTable">
+											<tbody>
+												<tr>
+													<td valign="top" colspan="2">
+														<div class="topExpander"></div>
+														<div class="widgetsNavigation" id="widgetsNavigation">
+															<div class="navigationContainer">
+																<div class="topNavigation">
+																	<table cellspacing="0" cellpadding="0"
+																		style="border-collapse: collapse; margin-left: 0px; margin-top: 10px; width: 100%;"
+																		class="navigationTable">
+																		<colgroup>
+																			<col width="149">
+																			<col width="170">
+																			<col width="180">
+																			<col width="176">
+																			<col width="174">
+																			<col width="162">
+																			<col width="164">
+																		</colgroup>
+																		<tbody>
+																			<tr>
+																				<td valign="top" align="left" colspan="6"><span
+																					class="navTableHeader">Web UI Widgets</span></td>
+																				<td valign="top" align="left" colspan="1"><span
+																					class="navTableHeader">Integration</span></td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-grid-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxgrid/index.htm">jqxGrid</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-tabs-icon"></div>
+																						<div>
+																							<a wicket:id="id_tabs_default_page_link">jqxTabs</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-listbox-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxlistbox/index.htm">jqxListBox</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-datetimeinput-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxdatetimeinput/index.htm">jqxDateTimeInput</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-window-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxwindow/index.htm">jqxWindow</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-splitter-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxsplitter/index.htm">jqxSplitter</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-angularjs-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxangular/index.htm">AngularJS</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-chart-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxchart/index.htm">jqxChart</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-menu-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxmenu/index.htm">jqxMenu</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-buttons-icon"></div>
+
+																						<div>
+																							<a wicket:id="jqxButtons">jqxButtons</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-calendar-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxcalendar/index.htm">jqxCalendar</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-docking-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxdocking/index.htm">jqxDocking</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-panel-icon"></div>
+
+																						<div>
+																							<a href="../../demos/jqxpanel/index.htm">jqxPanels</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-knockoutjs-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxknockout/index.htm">KnockoutJS</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-gauge-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxgauge/index.htm">jqxGauge</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-navigationbar-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxnavigationbar/index.htm">jqxNavigationBar</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-editor-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxeditor/index.htm">jqxEditor</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-progressbar-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxprogressbar/index.htm">jqxProgressBar</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-tooltip-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxtooltip/index.htm">jqxTooltip</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-validator-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxvalidator/index.htm">jqxValidator</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-bootstrap-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/twitter/index.htm">Bootstrap</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-datatable-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxdatatable/index.htm">jqxDataTable</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-tree-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxtree/index.htm">jqxTree</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-inputfield-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxinput/index.htm">jqxInput</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-scrollview-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxscrollview/index.htm">jqxScrollView</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-notification-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxnotification/index.htm">jqxNotification</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-draw-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxDraw/index.htm">jqxDraw</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-requirejs-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/requirejs/index.htm">RequireJS</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-treegrid-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxtreegrid/index.htm">jqxTreeGrid</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-listmenu-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxlistmenu/index.htm">jqxListMenu</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-maskedinput-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxmaskedinput/index.htm">jqxMaskedInput</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-rating-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxrating/index.htm">jqxRating</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-scrollbar-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxscrollbar/index.htm">jqxScrollBar</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-dragdrop-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxdragdrop/index.htm">jqxDragDrop</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-jquerymobile-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jquerymobile/index.htm">jQuery
+																								Mobile</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-treemap-icon"></div>
+																						<div>
+																							<a href="../../demos/jqxtreemap/index.htm">jqxTreeMap</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-dropdownlist-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxdropdownlist/index.htm">jqxDropDownList</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-passwordinput-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxpasswordinput/index.htm">jqxPasswordInput</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-colorpicker-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxcolorpicker/index.htm">jqxColorPicker</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-rangeselector-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxrangeselector/index.htm">jqxRangeSelector</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-dataadapter-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxdataadapter/index.htm">jqxDataAdapter</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-php-icon"></div>
+
+																						<div>
+																							<a href="../../demos/aspnetmvc/index.htm">ASP
+																								.NET MVC</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-bulletchart-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxbulletchart/index.htm">jqxBulletChart</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-combobox-icon">
+																						</div>
+																						<div>
+																							<a href="../../demos/jqxcombobox/index.htm">jqxComboBox</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-numberinput-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxnumberinput/index.htm">jqxNumberInput</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-expander-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxexpander/index.htm">jqxExpander</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-slider-icon"></div>
+
+																						<div>
+																							<a href="../../demos/jqxslider/index.htm">jqxSlider</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-response-icon">
+																						</div>
+
+																						<div>
+																							<a href="../../demos/jqxresponse/index.htm">jqxResponse</a>
+																						</div>
+																					</div>
+																				</td>
+																				<td align="left">
+																					<div class="topNavigation-item">
+																						<div class="widget-icon jqx-php-icon"></div>
+																						<div>
+																							<a href="../../demos/php/index.htm">PHP</a>
+																						</div>
+																					</div>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<wicket:child />
 
 	Apache Wicket
 	<span wicket:id="version"></span>
