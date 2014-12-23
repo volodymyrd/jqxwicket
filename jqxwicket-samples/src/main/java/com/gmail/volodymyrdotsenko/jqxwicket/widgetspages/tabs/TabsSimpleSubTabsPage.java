@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.model.Model;
 
 import com.gmail.volodymyrdotsenko.jqxwicket.core.Options;
@@ -28,21 +30,29 @@ public class TabsSimpleSubTabsPage extends TabsTemplatePage {
 	private List<IXTab> newExtTabList() {
 		List<IXTab> tabs = new ArrayList<IXTab>();
 
-		// Ext tab 1 //
-		tabs.add(new XAbstractTab(Model.of("ExtTab 1")) {
+		// Ext tab 2 //
+		tabs.add(new XAbstractTab(Model.of("ExtTab 2")) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public WebMarkupContainer getPanel(String panelId) {
-				Fragment p = new Fragment(panelId, "ExtPanel",
-						tabbedPanel);
-				// p.add(new TabbedPanel("InnerTabs", TabsSimpleSubTabsPage.this
-				// .newInnerTabList(), new Options()));
+				// SubFragment p = new SubFragment(panelId, "ExtMainPanel");
+
+				Fragment f = new Fragment(panelId, "ExtPanel",
+						TabsSimpleSubTabsPage.this);
+
+				SubFragment p = new SubFragment(panelId, "ExtMainPanel");
+				//f.add(new TabbedPanel("InnerTabs", TabsSimpleSubTabsPage.this
+					//	.newInnerTabList(), new Options().set("width", "'90%'")));
 
 				return p;
 			}
 		});
+
+		// Ext tab 1
+		tabs.add(new SimpleTab(Model.of("ExtTab 1"), Model.of("my content"),
+				false));
 
 		return tabs;
 	}
@@ -51,8 +61,13 @@ public class TabsSimpleSubTabsPage extends TabsTemplatePage {
 		List<IXTab> tabs = new ArrayList<IXTab>();
 
 		// tab 1
-		tabs.add(new SimpleTab(Model.of("Tab 1"), Model.of("my content"), false));
+		tabs.add(new SimpleTab(Model.of("Tab 1"), Model.of("my content1"),
+				false));
+
+		// tab 2
+		tabs.add(new SimpleTab(Model.of("Tab 2"), Model.of("my content2"), true));
 
 		return tabs;
 	}
+
 }

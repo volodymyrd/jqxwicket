@@ -24,6 +24,8 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.IMarkupSourcingStrategy;
+import org.apache.wicket.markup.html.panel.PanelMarkupSourcingStrategy;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.util.ListModel;
@@ -297,5 +299,10 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 	public void onCloseTab(AjaxRequestTarget target, int index, IXTab tab) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	protected IMarkupSourcingStrategy newMarkupSourcingStrategy() {
+		return new PanelMarkupSourcingStrategy(true);
 	}
 }

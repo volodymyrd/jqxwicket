@@ -7,11 +7,14 @@
 </head>
 <body>
 	<wicket:extend>
-		<div wicket:id="ExtTabs">
-			<div wicket:id="ExtPanel">
-				<div wicket:id="InnerTabs" />
-			</div>
-		</div>
+		<div wicket:id="ExtTabs"></div>
+
+		<wicket:fragment wicket:id="ExtPanel">
+				Subtabs:
+<!-- 				<div wicket:id="InnerTabs" style="width: 100%; margin: 0 auto;"></div> -->
+<!-- 			<wicket:child /> -->
+		</wicket:fragment>
+
 	</wicket:extend>
 </body>
 </html>
