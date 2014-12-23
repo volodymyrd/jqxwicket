@@ -25,63 +25,65 @@ import com.gmail.volodymyrdotsenko.jqxwicket.core.panel.LabelPanel;
 
 /**
  * Provides a simple {@link AbstractTab} that embeds a {@link LabelPanel}
- *
+ * 
  * @author Sebastien Briquet - sebfz1
  * @since 1.2.3
  * @since 6.0.1
  */
-public class SimpleTab extends XAbstractTab
-{
+public class SimpleTab extends XAbstractTab {
 	private static final long serialVersionUID = 1L;
 
 	private final IModel<String> content;
 
 	/**
 	 * Constructor
-	 *
-	 * @param title the title of the tab
-	 * @param content the content of the tab
+	 * 
+	 * @param title
+	 *            the title of the tab
+	 * @param content
+	 *            the content of the tab
 	 */
-	public SimpleTab(String title, String content)
-	{
-		this(Model.of(title), Model.of(content));
+	public SimpleTab(String title, String content) {
+		this(Model.of(title), Model.of(content), false);
 	}
 
 	/**
 	 * Constructor
-	 *
-	 * @param title IModel used to represent the title of the tab
-	 * @param content IModel used to represent the content of the tab
+	 * 
+	 * @param title
+	 *            IModel used to represent the title of the tab
+	 * @param content
+	 *            IModel used to represent the content of the tab
 	 */
-	public SimpleTab(IModel<String> title, IModel<String> content)
-	{
-		super(title);
+	public SimpleTab(IModel<String> title, IModel<String> content,
+			boolean closable) {
+		super(title, closable);
 
 		this.content = content;
 	}
-
 
 	// Properties //
 
 	/**
 	 * Sets the text content of tab
-	 * @param content the text content of tab
+	 * 
+	 * @param content
+	 *            the text content of tab
 	 */
-	public void setContent(String content)
-	{
+	public void setContent(String content) {
 		this.content.setObject(content);
 	}
-
 
 	// Methods //
 
 	/**
-	 * Gets the {@link LabelPanel} that contains the content supplied in the constructor
+	 * Gets the {@link LabelPanel} that contains the content supplied in the
+	 * constructor
+	 * 
 	 * @return the {@link LabelPanel}
 	 */
 	@Override
-	public final WebMarkupContainer getPanel(String panelId)
-	{
+	public final WebMarkupContainer getPanel(String panelId) {
 		return new LabelPanel(panelId, this.content);
 	}
 }

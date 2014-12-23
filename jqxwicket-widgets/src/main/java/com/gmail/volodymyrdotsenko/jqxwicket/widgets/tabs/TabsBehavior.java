@@ -46,7 +46,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	// private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
-	private List<JQueryAjaxBehavior> closeTabEventBehaviors = new ArrayList<JQueryAjaxBehavior>();
+	private JQueryAjaxBehavior closeTabEventBehavior = null;
 
 	// private JQueryAjaxBehavior closeEventBehavior = null;
 
@@ -115,9 +115,10 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 		for (IXTab tab : tabs) {
 			if (tab.isClosable()) {
-				JQueryAjaxBehavior closeEvent = this.newCloseTabEventBehavior();
-				component.add(closeEvent);
-				this.closeTabEventBehaviors.add(closeEvent);
+				component.add(this.closeTabEventBehavior = this
+						.newCloseTabEventBehavior());
+
+				break;
 			}
 		}
 
@@ -154,6 +155,8 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	public void onConfigure(Component component) {
 		super.onConfigure(component);
 
+		this.setOption("showCloseButtons", true);
+
 		// if (this.createEventBehavior != null) {
 		// this.setOption("created",
 		// this.createEventBehavior.getCallbackFunction());
@@ -166,11 +169,16 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 			// + "console.log('The selected tab is '+ selectedTab)}");
 		}
 
-		for (int i = 0; i < this.closeTabEventBehaviors.size(); i++) {
-			this.method("showCloseButtonAt", "'showCloseButtonAt'", i);
-			this.on("removed", this.closeTabEventBehaviors.get(i)
-					.getCallbackFunction());
+		List<IXTab> tabs = getVisibleTabs();
+
+		for (int i = 0; i < tabs.size(); i++) {
+			if (!tabs.get(i).isClosable()) {
+				this.method("hideCloseButtonAt" + i, "'hideCloseButtonAt'", i);
+			}
 		}
+
+		if (this.closeTabEventBehavior != null)
+			this.on("removed", this.closeTabEventBehavior.getCallbackFunction());
 
 		// if (this.activatingEventBehavior != null) {
 		// this.setOption("beforeActivate",
@@ -205,6 +213,13 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 			List<IXTab> tabs = getTabs();
 			if (-1 < index && index < tabs.size()) {
 				tabs.remove(index);
+			}
+
+			for (int i = index; i < tabs.size(); i++) {
+				if (tabs.get(i).isClosable())
+					target.appendJavaScript(this.$("'showCloseButtonAt'", i));
+				else
+					target.appendJavaScript(this.$("'hideCloseButtonAt'", i));
 			}
 		}
 	}
