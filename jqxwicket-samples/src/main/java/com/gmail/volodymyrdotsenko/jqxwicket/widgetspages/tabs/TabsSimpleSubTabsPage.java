@@ -42,11 +42,12 @@ public class TabsSimpleSubTabsPage extends TabsTemplatePage {
 				Fragment f = new Fragment(panelId, "ExtPanel",
 						TabsSimpleSubTabsPage.this);
 
-				SubFragment p = new SubFragment(panelId, "ExtMainPanel");
-				//f.add(new TabbedPanel("InnerTabs", TabsSimpleSubTabsPage.this
-					//	.newInnerTabList(), new Options().set("width", "'90%'")));
+				Panel p = new BasePanel("ExtMainPanel", panelId);
+				// f.add(new TabbedPanel("InnerTabs", TabsSimpleSubTabsPage.this
+				// .newInnerTabList(), new Options().set("width", "'90%'")));
+				f.add(p);
 
-				return p;
+				return f;
 			}
 		});
 
