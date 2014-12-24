@@ -2,6 +2,7 @@ package com.gmail.volodymyrdotsenko.jqxwicket;
 
 import org.apache.wicket.markup.html.link.Link;
 
+import com.gmail.volodymyrdotsenko.jqxwicket.tests.DynamicComponentsPage;
 import com.gmail.volodymyrdotsenko.jqxwicket.tests.PanelsTest;
 
 public class HomePage extends TemplatePage {
@@ -12,7 +13,7 @@ public class HomePage extends TemplatePage {
 			@Override
 			public void onClick() {
 				// we redirect browser to another page.
-				setResponsePage(PanelsTest.class);
+				setResponsePage(DynamicComponentsPage.class);
 			}
 		});
 	}
