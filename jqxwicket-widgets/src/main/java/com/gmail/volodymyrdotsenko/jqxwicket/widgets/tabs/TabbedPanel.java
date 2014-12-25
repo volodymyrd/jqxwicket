@@ -19,7 +19,6 @@ package com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -104,7 +103,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 	 * @return this, for chaining
 	 */
 	public TabbedPanel setActiveTab(int index) {
-		this.options.set("selectedItem ", index);
+		this.options.set("selectedItem", index);
 
 		return this;
 	}
@@ -129,17 +128,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 	}
 
 	@Override
-	public boolean isCreateEventEnabled() {
-		return false;
-	}
-
-	@Override
 	public boolean isActivateEventEnabled() {
-		return true;
-	}
-
-	@Override
-	public boolean isActivatingEventEnabled() {
 		return false;
 	}
 
@@ -207,7 +196,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 					// link (tab) //
 					Label link = TabbedPanel.this.newTitleLabel("link",
 							tab.getTitle());
-					//link.add(AttributeModifier.replace("href", "#" + newId));
+					// link.add(AttributeModifier.replace("href", "#" + newId));
 					item.add(link);
 
 					// panel //
@@ -219,17 +208,7 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 
 		this.add(this.widgetBehavior = this.newWidgetBehavior(JQueryWidget
 
-				.getSelector(this)));
-	}
-
-	@Override
-	public void onActivate(AjaxRequestTarget target, int index, IXTab tab) {
-		// noop
-	}
-
-	@Override
-	public void onActivating(AjaxRequestTarget target, int index, IXTab tab) {
-		// noop
+		.getSelector(this)));
 	}
 
 	// Factories //
@@ -261,30 +240,14 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 			}
 
 			@Override
-			public boolean isCreateEventEnabled() {
-				return TabbedPanel.this.isCreateEventEnabled();
-			}
-
-			@Override
 			public boolean isActivateEventEnabled() {
 				return TabbedPanel.this.isActivateEventEnabled();
-			}
-
-			@Override
-			public boolean isActivatingEventEnabled() {
-				return TabbedPanel.this.isActivatingEventEnabled();
 			}
 
 			@Override
 			public void onActivate(AjaxRequestTarget target, int index,
 					IXTab tab) {
 				TabbedPanel.this.onActivate(target, index, tab);
-			}
-
-			@Override
-			public void onActivating(AjaxRequestTarget target, int index,
-					IXTab tab) {
-				TabbedPanel.this.onActivating(target, index, tab);
 			}
 
 			@Override
@@ -296,13 +259,17 @@ public class TabbedPanel extends JQueryPanel implements ITabsListener {
 	}
 
 	@Override
-	public void onCloseTab(AjaxRequestTarget target, int index, IXTab tab) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	@Override
 	protected IMarkupSourcingStrategy newMarkupSourcingStrategy() {
 		return new PanelMarkupSourcingStrategy(true);
+	}
+
+	@Override
+	public void onActivate(AjaxRequestTarget target, int index, IXTab tab) {
+		// noop
+	}
+
+	@Override
+	public void onCloseTab(AjaxRequestTarget target, int index, IXTab tab) {
+		// noop
 	}
 }

@@ -44,7 +44,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 	private static final long serialVersionUID = 1L;
 	private static final String METHOD = "jqxTabs";
 
-	// private JQueryAjaxBehavior createEventBehavior = null;
+	//private JQueryAjaxBehavior createEventBehavior = null;
 	private JQueryAjaxBehavior activateEventBehavior = null;
 	private JQueryAjaxBehavior closeTabEventBehavior = null;
 
@@ -122,20 +122,15 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 			}
 		}
 
-		// if (this.isCreateEventEnabled()) {
-		// component.add(this.createEventBehavior = this
-		// .newActivateEventBehavior());
-		// }
+//		if (this.isCreateEventEnabled()) {
+//			component.add(this.createEventBehavior = this
+//					.newCreateEventBehavior());
+//		}
 
 		if (this.isActivateEventEnabled()) {
 			component.add(this.activateEventBehavior = this
 					.newActivateEventBehavior());
 		}
-
-		// if (this.isActivatingEventEnabled()) {
-		// component.add(this.activatingEventBehavior = this
-		// .newActivatingEventBehavior());
-		// }
 	}
 
 	/**
@@ -157,10 +152,9 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 		this.setOption("showCloseButtons", true);
 
-		// if (this.createEventBehavior != null) {
-		// this.setOption("created",
-		// this.createEventBehavior.getCallbackFunction());
-		// }
+//		if (this.createEventBehavior != null) {
+//			this.on("created", this.createEventBehavior.getCallbackFunction());
+//		}
 
 		if (this.activateEventBehavior != null) {
 			this.on("selected",
@@ -188,6 +182,7 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	@Override
 	public void onAjax(AjaxRequestTarget target, JQueryEvent event) {
+
 		if (event instanceof ActivateEvent) {
 			int index = ((ActivateEvent) event).getIndex();
 			final List<IXTab> tabs = this.getVisibleTabs();
@@ -226,7 +221,34 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 
 	// Factories //
 	/**
-	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'activate'
+	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'created'
+	 * javascript callback
+	 * 
+	 * @return the {@link JQueryAjaxBehavior}
+	 */
+	protected JQueryAjaxBehavior newCreateEventBehavior() {
+		return new JQueryAjaxBehavior(this) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected CallbackParameter[] getCallbackParameters() {
+				return new CallbackParameter[] { CallbackParameter
+						.context("event"),
+				// CallbackParameter.context("ui"),
+				// CallbackParameter.resolved("index", "event.args.item")
+				};
+			}
+
+			@Override
+			protected JQueryEvent newEvent() {
+				return new CreateEvent();
+			}
+		};
+	}
+
+	/**
+	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'selected'
 	 * javascript callback
 	 * 
 	 * @return the {@link JQueryAjaxBehavior}
@@ -276,35 +298,20 @@ public abstract class TabsBehavior extends JQueryUIBehavior implements
 		};
 	}
 
-	/**
-	 * Gets a new {@link JQueryAjaxBehavior} that acts as the 'beforeActivate'
-	 * javascript callback
-	 * 
-	 * @return the {@link JQueryAjaxBehavior}
-	 */
-	// protected JQueryAjaxBehavior newActivatingEventBehavior() {
-	// return new JQueryAjaxBehavior(this) {
-	//
-	// private static final long serialVersionUID = 1L;
-	//
-	// @Override
-	// protected CallbackParameter[] getCallbackParameters() {
-	// return new CallbackParameter[] {
-	// CallbackParameter.context("event"),
-	// CallbackParameter.context("ui"),
-	// CallbackParameter
-	// .resolved("index",
-	// "jQuery(event.target).jqxTabs('option', 'selectedItem')"), };
-	// }
-	//
-	// @Override
-	// protected JQueryEvent newEvent() {
-	// return new ActivatingEvent();
-	// }
-	// };
-	// }
-
 	// Event objects //
+	/**
+	 * Provides an event object that will be broadcasted by the
+	 * {@link JQueryAjaxBehavior} 'created' callback
+	 */
+	protected static class CreateEvent extends JQueryEvent {
+
+		/**
+		 * Constructor
+		 */
+		public CreateEvent() {
+			super();
+		}
+	}
 
 	/**
 	 * Provides an event object that will be broadcasted by the

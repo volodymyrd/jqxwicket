@@ -22,7 +22,15 @@ public class TabsDefaultPage extends TabsTemplatePage {
 		options.set("collapsible", true).set("width", "'90%'")
 				.set("height", 250).set("position", "'top'");
 
-		add(new TabbedPanel("tabs", this.newTabList(), options));
+		add(new TabbedPanel("tabs", this.newTabList(), options) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isActivateEventEnabled() {
+				return true;
+			}
+		});
 		// this.add(new JQueryUIBehavior("#tabs1", "jqxTabs", options));
 	}
 

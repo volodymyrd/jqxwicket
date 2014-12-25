@@ -19,37 +19,32 @@ package com.gmail.volodymyrdotsenko.jqxwicket.widgets.tabs;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- * Event listener shared by the {@link TabbedPanel} widget and the {@link TabsBehavior}
+ * Event listener shared by the {@link TabbedPanel} widget and the
+ * {@link TabsBehavior}
  *
  * @author Sebastien Briquet - sebfz1
  *
  */
-interface ITabsListener
-{
-	/**
-	 * Triggered when a tab has been closed ('removed' event).<br/>
-	 *
-	 * @param target the {@link AjaxRequestTarget}
-	 * @param index the tab index that triggered this event
-	 * @param tab the {@link ITab} that corresponds to the index
-	 */
-	void onCloseTab(AjaxRequestTarget target, int index, IXTab tab);
-	
+interface ITabsListener {
 	/**
 	 * Indicates whether the 'create' event is enabled.<br/>
-	 * If true, the {@link #onActivate(AjaxRequestTarget, int, ITab)} event will be triggered on 'create'<br/>
+	 * If true, the {@link #onActivate(AjaxRequestTarget, int, ITab)} event will
+	 * be triggered on 'create'<br/>
 	 * <br/>
-	 * <b>Warning: </b> 'create' event is required to be enabled for the {@link AjaxTab} to load
+	 * <b>Warning: </b> 'create' event is required to be enabled for the
+	 * {@link AjaxTab} to load
 	 *
 	 * @return true by default
 	 */
-	boolean isCreateEventEnabled();
+	//boolean isCreateEventEnabled();
 
 	/**
 	 * Indicates whether the 'activate' event is enabled.<br/>
-	 * If true, the {@link #onActivate(AjaxRequestTarget, int, ITab)} event will be triggered on 'activate'<br/>
+	 * If true, the {@link #onActivate(AjaxRequestTarget, int, ITab)} event will
+	 * be triggered on 'activate'<br/>
 	 * <br/>
-	 * <b>Warning: </b> 'activate' event is required to be enabled for the {@link AjaxTab} to load
+	 * <b>Warning: </b> 'activate' event is required to be enabled for the
+	 * {@link AjaxTab} to load
 	 *
 	 * @return true by default
 	 */
@@ -57,27 +52,58 @@ interface ITabsListener
 
 	/**
 	 * Indicates whether the 'beforeActivate' event is enabled.<br />
-	 * If true, the {@link #onActivating(AjaxRequestTarget, int, ITab)} event will be triggered.
+	 * If true, the {@link #onActivating(AjaxRequestTarget, int, ITab)} event
+	 * will be triggered.
 	 *
 	 * @return false by default
 	 */
-	boolean isActivatingEventEnabled();
+	//boolean isActivatingEventEnabled();
+	
+	/**
+	 * Triggered when a tab has been activated ('selected' event).<br/>
+	 *
+	 * @param target
+	 *            the {@link AjaxRequestTarget}
+	 * @param index
+	 *            the tab index that triggered this event
+	 * @param tab
+	 *            the {@link ITab} that corresponds to the index
+	 */
+	//void onCreate(AjaxRequestTarget target);	
 
 	/**
-	 * Triggered when a tab has been activated ('activate' event).<br/>
+	 * Triggered when a tab has been activated ('selected' event).<br/>
 	 *
-	 * @param target the {@link AjaxRequestTarget}
-	 * @param index the tab index that triggered this event
-	 * @param tab the {@link ITab} that corresponds to the index
+	 * @param target
+	 *            the {@link AjaxRequestTarget}
+	 * @param index
+	 *            the tab index that triggered this event
+	 * @param tab
+	 *            the {@link ITab} that corresponds to the index
 	 */
 	void onActivate(AjaxRequestTarget target, int index, IXTab tab);
 
 	/**
+	 * Triggered when a tab has been closed ('removed' event).<br/>
+	 *
+	 * @param target
+	 *            the {@link AjaxRequestTarget}
+	 * @param index
+	 *            the tab index that triggered this event
+	 * @param tab
+	 *            the {@link ITab} that corresponds to the index
+	 */
+	void onCloseTab(AjaxRequestTarget target, int index, IXTab tab);
+
+	/**
 	 * Triggered when a tab is being activated ('beforeActivate' event).<br/>
 	 *
-	 * @param target the {@link AjaxRequestTarget}
-	 * @param index the previously selected tab index
-	 * @param tab the {@link ITab} that corresponds to the index
+	 * @param target
+	 *            the {@link AjaxRequestTarget}
+	 * @param index
+	 *            the previously selected tab index
+	 * @param tab
+	 *            the {@link ITab} that corresponds to the index
 	 */
-	void onActivating(AjaxRequestTarget target, int index, IXTab tab);
+	//void onActivating(AjaxRequestTarget target, int index, IXTab tab);
 }
