@@ -28,7 +28,7 @@ http://www.springframework.org/schema/social http://www.springframework.org/sche
 		presented to a specific Spring dependency injection method). Roo applications 
 		use this useful feature in a number of areas, such as @PersistenceContext 
 		injection into entities. -->
-	<!-- <context:spring-configured /> -->
+<!-- 	<context:spring-configured /> -->
 	<!-- This declaration will cause Spring to locate every @Component, @Repository 
 		and @Service in your application. In practical terms this allows you to write 
 		a POJO and then simply annotate the new POJO as an @Service and Spring will 
@@ -77,5 +77,4 @@ http://www.springframework.org/schema/social http://www.springframework.org/sche
 		<property name="persistenceUnitName" value="persistenceUnit" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<task:annotation-driven />
 </beans>
