@@ -10,6 +10,16 @@
 		<param-value>development</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:META-INF/spring/applicationContext*.xml</param-value>
+	</context-param>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
 	<!-- There are three means to configure Wickets configuration mode and they 
 		are tested in the order given. 1) A system property: -Dwicket.configuration 
 		2) servlet specific <init-param> 3) context specific <context-param> The 
